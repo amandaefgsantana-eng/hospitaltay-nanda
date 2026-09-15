@@ -1,0 +1,923 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Triagem — Hospital Hello Kitty</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 30px 15px;
+
+      font-family: 'Nunito', sans-serif;
+
+      background:
+        radial-gradient(circle at 10% 15%, #ffffff 0 4px, transparent 5px),
+        radial-gradient(circle at 85% 20%, #ffffff 0 5px, transparent 6px),
+        radial-gradient(circle at 20% 80%, #ffffff 0 4px, transparent 5px),
+        radial-gradient(circle at 90% 75%, #ffffff 0 3px, transparent 4px),
+        linear-gradient(135deg, #ffd9e8, #fff3f8);
+
+      background-size:
+        100px 100px,
+        130px 130px,
+        90px 90px,
+        120px 120px,
+        cover;
+    }
+
+    /* CONTAINER PRINCIPAL */
+    .container {
+      width: 100%;
+      max-width: 900px;
+      margin: auto;
+      padding: 30px;
+
+      background: rgba(255, 255, 255, 0.97);
+
+      border: 4px solid #ff9fbe;
+      border-radius: 30px;
+
+      box-shadow:
+        0 15px 35px rgba(214, 91, 132, 0.22),
+        0 5px 0 #ffb8cf;
+
+      position: relative;
+    }
+
+    /* Laços */
+    .container::before,
+    .container::after {
+      content: "🎀";
+
+      position: absolute;
+      top: -25px;
+
+      font-size: 40px;
+
+      filter: drop-shadow(2px 3px 2px rgba(0, 0, 0, 0.12));
+    }
+
+    .container::before {
+      left: 25px;
+    }
+
+    .container::after {
+      right: 25px;
+    }
+
+    /* CABEÇALHO */
+    .cabecalho {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+
+      margin-bottom: 25px;
+      padding-bottom: 20px;
+
+      border-bottom: 2px dashed #ffc1d5;
+    }
+
+    .titulo-area {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .icone {
+      width: 65px;
+      height: 65px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      flex-shrink: 0;
+
+      background: #ffe5ef;
+
+      border: 3px solid #ffabc6;
+      border-radius: 50%;
+
+      font-size: 32px;
+
+      box-shadow: 0 4px 0 #ffc5d8;
+    }
+
+    h2 {
+      margin: 0;
+
+      color: #e83f78;
+
+      font-size: 25px;
+      font-weight: 800;
+
+      text-shadow: 1px 2px 0 #ffd1e0;
+    }
+
+    .subtitulo {
+      margin-top: 3px;
+
+      color: #c97895;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    /* BOTÃO TV */
+    .btn-abrir-tv {
+      padding: 11px 17px;
+
+      border: none;
+      border-radius: 17px;
+
+      background: linear-gradient(135deg, #f45183, #e93670);
+
+      color: white;
+
+      font-family: 'Nunito', sans-serif;
+      font-size: 14px;
+      font-weight: 800;
+
+      cursor: pointer;
+
+      box-shadow: 0 4px 0 #bd2859;
+
+      transition: 0.15s;
+    }
+
+    .btn-abrir-tv:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 0 #bd2859;
+    }
+
+    .btn-abrir-tv:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px 0 #bd2859;
+    }
+
+    /* FILA */
+    .pacientes-fila {
+      margin-bottom: 28px;
+      padding: 20px;
+
+      background: #fff4f8;
+
+      border: 2px solid #ffc5d8;
+      border-radius: 22px;
+
+      box-shadow: 0 4px 12px rgba(221, 100, 140, 0.08);
+    }
+
+    .pacientes-fila h3 {
+      margin: 0 0 15px;
+
+      color: #d83d70;
+
+      font-size: 18px;
+      font-weight: 800;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .pacientes-fila h3 span {
+      font-size: 12px;
+      font-weight: 600;
+      color: #bd8095;
+    }
+
+    /* ITEM DO PACIENTE */
+    .fila-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+
+      background: white;
+
+      border: 2px solid #ffe0ea;
+      border-radius: 17px;
+
+      padding: 12px 15px;
+      margin-bottom: 9px;
+
+      box-shadow: 0 3px 8px rgba(221, 100, 140, 0.07);
+
+      transition: 0.2s;
+    }
+
+    .fila-item:hover {
+      border-color: #ffabc6;
+      transform: translateX(3px);
+    }
+
+    .fila-item strong {
+      color: #8b3b59;
+      font-size: 15px;
+    }
+
+    .fila-item small {
+      color: #b98598;
+      font-size: 12px;
+    }
+
+    /* BOTÃO CHAMAR TV */
+    .btn-tv {
+      background: #f45183;
+      color: white;
+
+      border: none;
+      padding: 9px 14px;
+
+      border-radius: 14px;
+
+      cursor: pointer;
+
+      font-family: 'Nunito', sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+
+      box-shadow: 0 3px 0 #bd2859;
+
+      transition: 0.15s;
+    }
+
+    .btn-tv:hover {
+      background: #e93670;
+      transform: translateY(-1px);
+    }
+
+    .btn-tv:active {
+      transform: translateY(2px);
+      box-shadow: 0 1px 0 #bd2859;
+    }
+
+    /* ATUALIZAR */
+    .btn-atualizar {
+      margin-top: 8px;
+
+      background: #ffc1d5;
+      color: #9c4565;
+
+      border: none;
+      padding: 8px 14px;
+
+      border-radius: 13px;
+
+      cursor: pointer;
+
+      font-family: 'Nunito', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .btn-atualizar:hover {
+      background: #ffabc6;
+      color: white;
+    }
+
+    /* SEPARADOR */
+    hr {
+      border: none;
+      border-top: 2px dashed #ffc5d8;
+
+      margin: 25px 0;
+    }
+
+    /* FORMULÁRIO */
+    .form-titulo {
+      margin-bottom: 18px;
+
+      color: #d83d70;
+
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+
+      margin-bottom: 14px;
+      padding: 13px 16px;
+
+      border: 2px solid #ffc5d8;
+      border-radius: 16px;
+
+      background: #fffafd;
+
+      color: #8b3b59;
+
+      font-family: 'Nunito', sans-serif;
+      font-size: 15px;
+
+      outline: none;
+
+      transition: 0.2s;
+    }
+
+    input,
+    select {
+      height: 50px;
+    }
+
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: #d49aad;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: #f36d9a;
+
+      background: white;
+
+      box-shadow:
+        0 0 0 4px rgba(243, 109, 154, 0.10);
+    }
+
+    /* RESULTADO */
+    #resultado {
+      display: none;
+
+      padding: 15px;
+      margin: 5px 0 18px;
+
+      border-radius: 16px;
+
+      text-align: center;
+
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    #resultado.verde {
+      display: block;
+
+      background: #e5f8ec;
+      color: #218838;
+
+      border: 2px solid #9ee2b1;
+    }
+
+    #resultado.amarelo {
+      display: block;
+
+      background: #fff6d8;
+      color: #a87800;
+
+      border: 2px solid #f5d77a;
+    }
+
+    #resultado.vermelho {
+      display: block;
+
+      background: #ffe3e7;
+      color: #d62839;
+
+      border: 2px solid #ff9da8;
+    }
+
+    /* BOTÃO SALVAR */
+    .btn-salvar {
+      width: 100%;
+      height: 53px;
+
+      border: none;
+      border-radius: 19px;
+
+      background: linear-gradient(135deg, #f45183, #e93670);
+
+      color: white;
+
+      font-family: 'Nunito', sans-serif;
+      font-size: 17px;
+      font-weight: 800;
+
+      cursor: pointer;
+
+      box-shadow: 0 5px 0 #bd2859;
+
+      transition: 0.15s;
+    }
+
+    .btn-salvar:hover {
+      transform: translateY(-2px);
+
+      background: linear-gradient(135deg, #ff5d91, #ed3c76);
+
+      box-shadow: 0 7px 0 #bd2859;
+    }
+
+    .btn-salvar:active {
+      transform: translateY(3px);
+      box-shadow: 0 2px 0 #bd2859;
+    }
+
+    /* RODAPÉ */
+    .rodape {
+      margin-top: 20px;
+
+      text-align: center;
+
+      color: #d28aa2;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .coracao {
+      color: #ed477d;
+    }
+
+    /* RESPONSIVO */
+    @media (max-width: 700px) {
+
+      .container {
+        padding: 25px 20px;
+      }
+
+      .cabecalho {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .titulo-area {
+        justify-content: center;
+      }
+
+      .btn-abrir-tv {
+        width: 100%;
+      }
+
+      .pacientes-fila h3 {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .fila-item {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .btn-tv {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 450px) {
+
+      body {
+        padding: 20px 10px;
+      }
+
+      h2 {
+        font-size: 21px;
+      }
+
+      .icone {
+        width: 55px;
+        height: 55px;
+        font-size: 27px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- CABEÇALHO -->
+  <div class="cabecalho">
+
+    <div class="titulo-area">
+
+      <div class="icone">
+        🩺
+      </div>
+
+      <div>
+        <h2>🎀 Triagem Hospitalar</h2>
+
+        <div class="subtitulo">
+          🏥 Hospital Hello Kitty • Área de Triagem
+        </div>
+      </div>
+
+    </div>
+
+    <button
+      class="btn-abrir-tv"
+      onclick="window.open('tv.html','_blank')">
+      📺 Abrir Tela da TV
+    </button>
+
+  </div>
+
+
+  <!-- FILA DE PACIENTES -->
+  <div class="pacientes-fila">
+
+    <h3>
+      <span style="font-size:18px; color:#d83d70;">
+        💗 Pacientes aguardando
+      </span>
+
+      <span>
+        Clique em "Chamar na TV" para chamar ao guichê
+      </span>
+    </h3>
+
+    <div id="fila-pacientes">
+      <p style="color:#c08b9d; text-align:center;">
+        🎀 Carregando pacientes...
+      </p>
+    </div>
+
+    <button
+      class="btn-atualizar"
+      onclick="carregarPacientes()">
+      🔄 Atualizar lista
+    </button>
+
+  </div>
+
+
+  <hr>
+
+
+  <!-- FORMULÁRIO -->
+  <div class="form-titulo">
+    🩷 Formulário de Triagem
+  </div>
+
+  <input
+    id="nome"
+    placeholder="👤 Nome do paciente"
+  >
+
+  <select id="sintoma">
+
+    <option value="">
+      🩺 Selecione o sintoma
+    </option>
+
+    <option value="dor_leve">
+      Dor leve
+    </option>
+
+    <option value="resfriado">
+      Resfriado
+    </option>
+
+    <option value="coriza">
+      Coriza
+    </option>
+
+    <option value="tosse">
+      Tosse
+    </option>
+
+    <option value="febre">
+      Febre
+    </option>
+
+    <option value="vomito">
+      Vômito
+    </option>
+
+    <option value="diarreia">
+      Diarreia
+    </option>
+
+    <option value="falta_ar_moderada">
+      Falta de ar moderada
+    </option>
+
+    <option value="falta_ar_grave">
+      Falta de ar grave
+    </option>
+
+    <option value="infarto">
+      Suspeita de infarto
+    </option>
+
+    <option value="avc">
+      Suspeita de AVC
+    </option>
+
+    <option value="convulsao">
+      Convulsão
+    </option>
+
+    <option value="hemorragia">
+      Hemorragia
+    </option>
+
+  </select>
+
+  <input
+    id="temp"
+    type="number"
+    placeholder="🌡️ Temperatura"
+  >
+
+  <input
+    id="alergia"
+    placeholder="💊 Alergias"
+  >
+
+  <textarea
+    id="observacao"
+    placeholder="📝 Observações"
+  ></textarea>
+
+
+  <!-- RESULTADO -->
+  <div id="resultado"></div>
+
+
+  <!-- SALVAR -->
+  <button
+    class="btn-salvar"
+    onclick="salvar()">
+    💗 Salvar Triagem
+  </button>
+
+
+  <div class="rodape">
+    Cuidando com carinho
+    <span class="coracao">♥</span>
+    Hospital Hello Kitty
+  </div>
+
+</div>
+
+
+<script>
+
+  function carregarPacientes() {
+
+    fetch("/pacientes")
+
+      .then(r => r.json())
+
+      .then(pacientes => {
+
+        const div =
+          document.getElementById("fila-pacientes");
+
+        // Mostra apenas pacientes em triagem
+        const fila =
+          pacientes.filter(p => p.status === "triagem");
+
+        if (fila.length === 0) {
+
+          div.innerHTML = `
+            <p style="
+              color:#c08b9d;
+              text-align:center;
+              padding:10px;
+            ">
+              🎀 Nenhum paciente aguardando.
+            </p>
+          `;
+
+          return;
+        }
+
+        div.innerHTML = "";
+
+        fila.forEach(p => {
+
+          const item =
+            document.createElement("div");
+
+          item.className = "fila-item";
+
+          item.innerHTML = `
+            <div>
+              <strong>💗 ${p.nome}</strong>
+              <br>
+
+              <small>
+                CPF: ${p.cpf || "—"}
+                |
+                Tipo: ${p.tipo || "—"}
+              </small>
+            </div>
+
+            <button
+              class="btn-tv"
+              onclick="chamarNaTV('${p.nome}')">
+
+              📺 Chamar na TV
+
+            </button>
+          `;
+
+          div.appendChild(item);
+
+        });
+
+      })
+
+      .catch(() => {
+
+        document.getElementById(
+          "fila-pacientes"
+        ).innerHTML = `
+          <p style="
+            color:#dc3545;
+            text-align:center;
+          ">
+            ❌ Erro ao carregar pacientes.
+          </p>
+        `;
+
+      });
+
+  }
+
+
+  function chamarNaTV(nome) {
+
+    fetch("/tv/chamar", {
+
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json"
+      },
+
+      body: JSON.stringify({
+
+        localTipo: "GUICHÊ",
+
+        localNumero: "01",
+
+        paciente: nome
+
+      })
+
+    })
+
+    .then(r => r.json())
+
+    .then(() => {
+
+      alert(
+        "✅ " +
+        nome +
+        " foi chamado na TV para o Guichê 01!"
+      );
+
+    });
+
+  }
+
+
+  function classificarRisco(
+    sintoma,
+    temperatura
+  ) {
+
+    const vermelhos = [
+      "infarto",
+      "avc",
+      "convulsao",
+      "hemorragia",
+      "falta_ar_grave"
+    ];
+
+    const amarelos = [
+      "febre",
+      "vomito",
+      "diarreia",
+      "falta_ar_moderada"
+    ];
+
+    if (temperatura >= 39) {
+      return "vermelho";
+    }
+
+    if (vermelhos.includes(sintoma)) {
+      return "vermelho";
+    }
+
+    if (amarelos.includes(sintoma)) {
+      return "amarelo";
+    }
+
+    return "verde";
+
+  }
+
+
+  function salvar() {
+
+    const nome =
+      document.getElementById("nome").value;
+
+    const sintoma =
+      document.getElementById("sintoma").value;
+
+    const temperatura =
+      Number(
+        document.getElementById("temp").value
+      );
+
+    const alergia =
+      document.getElementById("alergia").value;
+
+    const observacao =
+      document.getElementById("observacao").value;
+
+    const risco =
+      classificarRisco(
+        sintoma,
+        temperatura
+      );
+
+
+    fetch("/triagem", {
+
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json"
+      },
+
+      body: JSON.stringify({
+
+        nome,
+        sintoma,
+        temperatura,
+        alergia,
+        observacao,
+        risco
+
+      })
+
+    })
+
+    .then(r => r.json())
+
+    .then(data => {
+
+      const resultado =
+        document.getElementById("resultado");
+
+      resultado.className = risco;
+
+      resultado.innerHTML =
+        "Classificação: " +
+        risco.toUpperCase();
+
+      alert(
+        "💗 Triagem salva com sucesso!"
+      );
+
+    });
+
+  }
+
+
+  // Carrega a fila ao abrir
+  carregarPacientes();
+
+
+  // Atualiza a lista a cada 10 segundos
+  setInterval(
+    carregarPacientes,
+    10000
+  );
+
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+  <title>Alta Médica — Hospital Hello Kitty</title>
+
+  <link rel="preconnect"
+        href="https://fonts.googleapis.com">
+
+  <link rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+
+  <style>
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 30px 15px;
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(135deg, #ffd9e8, #fff3f8);
+    }
+
+    .container {
+      width: 100%;
+      max-width: 950px;
+      margin: auto;
+      padding: 35px;
+      background: white;
+      border: 4px solid #ff9fbe;
+      border-radius: 30px;
+      box-shadow: 0 15px 35px rgba(214,91,132,.22);
+    }
+
+    .cabecalho {
+      text-align: center;
+      border-bottom: 2px dashed #ffc1d5;
+      padding-bottom: 20px;
+      margin-bottom: 25px;
+    }
+
+    h1 {
+      margin: 0;
+      color: #e83f78;
+      font-size: 30px;
+      font-weight: 900;
+    }
+
+    .subtitulo {
+      color: #c97895;
+      margin-top: 5px;
+      font-weight: 700;
+    }
+
+    .dados, .duas-colunas {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .campo {
+      padding: 15px;
+      background: #fff7fa;
+      border: 2px solid #ffc5d8;
+      border-radius: 16px;
+    }
+
+    .campo strong, label {
+      display: block;
+      color: #d83d70;
+      font-size: 13px;
+      font-weight: 900;
+      margin-bottom: 7px;
+    }
+
+    .campo span {
+      color: #6f4a59;
+      font-weight: 700;
+    }
+
+    .secao { margin-top: 22px; }
+
+    .secao h2 {
+      color: #d83d70;
+      font-size: 19px;
+      margin-bottom: 10px;
+    }
+
+    textarea, input {
+      width: 100%;
+      padding: 13px 14px;
+      border: 2px solid #ffc5d8;
+      border-radius: 14px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 15px;
+      outline: none;
+      color: #6f4a59;
+      background: #fffafd;
+    }
+
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    input { height: 48px; }
+
+    textarea:focus, input:focus {
+      border-color: #f36d9a;
+      box-shadow: 0 0 0 4px rgba(243,109,154,.10);
+      background: white;
+    }
+
+    .botoes {
+      display: flex;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    button {
+      flex: 1;
+      height: 52px;
+      border: none;
+      border-radius: 17px;
+      color: white;
+      font-family: 'Nunito', sans-serif;
+      font-size: 16px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .btn-pdf {
+      background: linear-gradient(135deg, #f45183, #e93670);
+      box-shadow: 0 4px 0 #bd2859;
+    }
+
+    .btn-voltar {
+      background: #ffabc6;
+      box-shadow: 0 4px 0 #dc6d91;
+    }
+
+    .assinatura {
+      margin-top: 55px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    .assinatura input {
+      height: 45px;
+      margin-top: 5px;
+    }
+
+    .rodape {
+      text-align: center;
+      margin-top: 25px;
+      color: #d28aa2;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    @media print {
+      @page { size: A4; margin: 15mm; }
+
+      body {
+        background: white;
+        padding: 0;
+      }
+
+      .container {
+        border: none;
+        box-shadow: none;
+        max-width: none;
+        padding: 0;
+      }
+
+      .botoes, .rodape {
+        display: none;
+      }
+
+      textarea, input {
+        border: none;
+        padding-left: 0;
+        padding-right: 0;
+        background: white;
+      }
+
+      .campo {
+        break-inside: avoid;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .container { padding: 22px; }
+      .dados, .duas-colunas, .assinatura { grid-template-columns: 1fr; }
+      .botoes { flex-direction: column; }
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+  <div class="cabecalho">
+    <h1>🎀 Formulário de Alta Médica</h1>
+    <div class="subtitulo">🏥 Hospital Hello Kitty • Área Médica</div>
+  </div>
+
+  <div class="dados">
+
+    <div class="campo">
+      <strong>👤 Paciente</strong>
+      <span id="nome">—</span>
+    </div>
+
+    <div class="campo">
+      <strong>🌡️ Temperatura</strong>
+      <span id="temperatura">—</span>
+    </div>
+
+    <div class="campo">
+      <strong>🩺 Sintoma</strong>
+      <span id="sintoma">—</span>
+    </div>
+
+    <div class="campo">
+      <strong>🚦 Classificação de risco</strong>
+      <span id="risco">—</span>
+    </div>
+
+    <div class="campo">
+      <strong>💊 Alergia</strong>
+      <span id="alergia">—</span>
+    </div>
+
+    <div class="campo">
+      <label for="dataAlta">📅 Data da alta</label>
+      <input type="date" id="dataAlta">
+    </div>
+
+  </div>
+
+  <div class="secao">
+    <h2>🩺 Diagnóstico final</h2>
+    <textarea id="diagnostico" placeholder="Digite o diagnóstico final..."></textarea>
+  </div>
+
+  <div class="secao">
+    <h2>💊 Prescrição e medicamentos</h2>
+    <textarea id="medicacao" placeholder="Digite medicamentos, horários e demais prescrições..."></textarea>
+  </div>
+
+  <div class="secao">
+    <h2>📝 Orientações para o paciente</h2>
+    <textarea id="orientacoes" placeholder="Digite os cuidados, retorno, recomendações e orientações..."></textarea>
+  </div>
+
+  <div class="duas-colunas">
+    <div>
+      <label for="medico">👨‍⚕️ Médico responsável</label>
+      <input id="medico" placeholder="Nome do médico">
+    </div>
+
+    <div>
+      <label for="crm">📋 CRM</label>
+      <input id="crm" placeholder="Número do CRM">
+    </div>
+  </div>
+
+  <div class="assinatura">
+    <div>
+      <label for="assinaturaMedico">Assinatura do médico</label>
+      <input id="assinaturaMedico" placeholder="Assinatura / nome completo">
+    </div>
+
+    <div>
+      <label for="dataDocumento">Data do documento</label>
+      <input id="dataDocumento" type="date">
+    </div>
+  </div>
+
+  <div class="botoes">
+    <button class="btn-voltar" onclick="window.close()">← Voltar</button>
+    <button class="btn-pdf" onclick="gerarPDF()">📄 Transformar em PDF</button>
+  </div>
+
+  <div class="rodape">
+    Documento de alta médica • Hospital Hello Kitty
+  </div>
+
+</div>
+
+<script>
+
+const dados = JSON.parse(localStorage.getItem("pacienteAlta"));
+
+if (!dados) {
+  alert("❌ Nenhum paciente foi selecionado.");
+} else {
+  document.getElementById("nome").textContent = dados.nome || "Não informado";
+  document.getElementById("temperatura").textContent =
+    dados.temperatura !== undefined && dados.temperatura !== ""
+      ? dados.temperatura + "°C"
+      : "Não informada";
+  document.getElementById("sintoma").textContent = dados.sintoma || "Não informado";
+  document.getElementById("risco").textContent = dados.risco || "Não informado";
+  document.getElementById("alergia").textContent = dados.alergia || "Nenhuma";
+}
+
+const hoje = new Date();
+const dataHoje = hoje.toISOString().split("T")[0];
+document.getElementById("dataAlta").value = dataHoje;
+document.getElementById("dataDocumento").value = dataHoje;
+
+function gerarPDF() {
+  const paciente = document.getElementById("nome").textContent;
+
+  if (!paciente || paciente === "—") {
+    alert("❌ Selecione um paciente antes de gerar a alta.");
+    return;
+  }
+
+  const diagnostico = document.getElementById("diagnostico").value.trim();
+  const medico = document.getElementById("medico").value.trim();
+
+  if (!diagnostico) {
+    alert("🩺 Preencha o diagnóstico final antes de gerar o PDF.");
+    document.getElementById("diagnostico").focus();
+    return;
+  }
+
+  if (!medico) {
+    alert("👨‍⚕️ Informe o médico responsável antes de gerar o PDF.");
+    document.getElementById("medico").focus();
+    return;
+  }
+
+  // O navegador abre a impressão já formatada para A4.
+  // Basta escolher "Salvar como PDF" para gerar o arquivo.
+  window.print();
+}
+
+</script>
+
+
+</body>
+
+</html>

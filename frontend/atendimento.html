@@ -1,0 +1,767 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>Atendimento — Hospital Hello Kitty</title>
+
+  <link rel="preconnect"
+        href="https://fonts.googleapis.com">
+
+  <link rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+
+    body {
+
+      margin: 0;
+
+      min-height: 100vh;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      padding: 25px 15px;
+
+      font-family:
+        'Nunito',
+        sans-serif;
+
+      background:
+
+        radial-gradient(
+          circle at 10% 15%,
+          #ffffff 0 4px,
+          transparent 5px
+        ),
+
+        radial-gradient(
+          circle at 85% 20%,
+          #ffffff 0 5px,
+          transparent 6px
+        ),
+
+        radial-gradient(
+          circle at 20% 80%,
+          #ffffff 0 4px,
+          transparent 5px
+        ),
+
+        radial-gradient(
+          circle at 90% 75%,
+          #ffffff 0 3px,
+          transparent 4px
+        ),
+
+        linear-gradient(
+          135deg,
+          #ffd9e8,
+          #fff3f8
+        );
+
+      background-size:
+        110px 110px,
+        140px 140px,
+        90px 90px,
+        120px 120px,
+        cover;
+    }
+
+
+    /* =================================
+       CONTAINER
+    ================================= */
+
+    .container {
+
+      width: 100%;
+
+      max-width: 430px;
+
+      padding: 35px 32px 30px;
+
+      background:
+        rgba(255,255,255,.97);
+
+      border: 4px solid #ff9fbe;
+
+      border-radius: 30px;
+
+      box-shadow:
+
+        0 15px 35px
+        rgba(214,91,132,.22),
+
+        0 5px 0
+        #ffb8cf;
+
+      text-align: center;
+
+      position: relative;
+    }
+
+
+    /* =================================
+       LAÇOS
+    ================================= */
+
+    .container::before,
+    .container::after {
+
+      content: "🎀";
+
+      position: absolute;
+
+      top: -27px;
+
+      font-size: 42px;
+
+      filter:
+        drop-shadow(
+          2px 3px 2px
+          rgba(0,0,0,.12)
+        );
+    }
+
+
+    .container::before {
+      left: 20px;
+    }
+
+
+    .container::after {
+      right: 20px;
+    }
+
+
+    /* =================================
+       ÍCONE
+    ================================= */
+
+    .icone {
+
+      width: 80px;
+
+      height: 80px;
+
+      margin: 0 auto 15px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      background: #ffe5ef;
+
+      border: 3px solid #ffabc6;
+
+      border-radius: 50%;
+
+      font-size: 40px;
+
+      box-shadow:
+        0 5px 0 #ffc5d8;
+    }
+
+
+    /* =================================
+       TÍTULO
+    ================================= */
+
+    h2 {
+
+      margin: 0;
+
+      color: #e83f78;
+
+      font-size: 27px;
+
+      font-weight: 900;
+
+      text-shadow:
+        1px 2px 0 #ffd1e0;
+    }
+
+
+    .subtitulo {
+
+      margin-top: 5px;
+
+      margin-bottom: 25px;
+
+      color: #c97895;
+
+      font-size: 13px;
+
+      font-weight: 600;
+    }
+
+
+    /* =================================
+       FORMULÁRIO
+    ================================= */
+
+    .campo {
+
+      text-align: left;
+
+      margin-bottom: 15px;
+    }
+
+
+    .campo label {
+
+      display: block;
+
+      margin: 0 0 6px 5px;
+
+      color: #a84968;
+
+      font-size: 13px;
+
+      font-weight: 800;
+    }
+
+
+    input,
+    select {
+
+      width: 100%;
+
+      height: 51px;
+
+      padding: 0 17px;
+
+      border: 2px solid #ffc1d5;
+
+      border-radius: 17px;
+
+      background: #fff8fb;
+
+      color: #8b3b59;
+
+      font-family:
+        'Nunito',
+        sans-serif;
+
+      font-size: 15px;
+
+      outline: none;
+
+      transition: .2s;
+    }
+
+
+    input::placeholder {
+
+      color: #d49aad;
+    }
+
+
+    input:focus,
+    select:focus {
+
+      border-color:
+        #f36d9a;
+
+      background: white;
+
+      box-shadow:
+        0 0 0 4px
+        rgba(243,109,154,.10);
+    }
+
+
+    /* =================================
+       CAMPO DE FOTO
+    ================================= */
+
+    .foto-box {
+
+      padding: 15px;
+
+      background: #fff4f8;
+
+      border: 2px dashed #ffabc6;
+
+      border-radius: 17px;
+
+      text-align: left;
+
+      margin-bottom: 20px;
+    }
+
+
+    .foto-titulo {
+
+      color: #d83d70;
+
+      font-size: 13px;
+
+      font-weight: 800;
+
+      margin-bottom: 8px;
+    }
+
+
+    .foto-box input {
+
+      height: auto;
+
+      padding: 8px;
+
+      background: white;
+
+      border: 1px solid #ffc5d8;
+
+      font-size: 13px;
+    }
+
+
+    /* =================================
+       BOTÃO
+    ================================= */
+
+    button {
+
+      width: 100%;
+
+      height: 53px;
+
+      margin-top: 5px;
+
+      border: none;
+
+      border-radius: 19px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #f45183,
+          #e93670
+        );
+
+      color: white;
+
+      font-family:
+        'Nunito',
+        sans-serif;
+
+      font-size: 17px;
+
+      font-weight: 900;
+
+      cursor: pointer;
+
+      box-shadow:
+        0 5px 0 #bd2859;
+
+      transition: .15s;
+    }
+
+
+    button:hover {
+
+      transform:
+        translateY(-2px);
+
+      box-shadow:
+        0 7px 0 #bd2859;
+
+      background:
+        linear-gradient(
+          135deg,
+          #ff5d91,
+          #ed3c76
+        );
+    }
+
+
+    button:active {
+
+      transform:
+        translateY(3px);
+
+      box-shadow:
+        0 2px 0 #bd2859;
+    }
+
+
+    /* =================================
+       MENSAGEM
+    ================================= */
+
+    #mensagem {
+
+      display: none;
+
+      margin-top: 18px;
+
+      padding: 12px;
+
+      border-radius: 15px;
+
+      background: #e5f8ec;
+
+      border: 2px solid #a6dfb6;
+
+      color: #218838;
+
+      font-size: 13px;
+
+      font-weight: 800;
+    }
+
+
+    /* =================================
+       RODAPÉ
+    ================================= */
+
+    .rodape {
+
+      margin-top: 20px;
+
+      color: #d28aa2;
+
+      font-size: 12px;
+
+      font-weight: 600;
+    }
+
+
+    .coracao {
+
+      color: #ed477d;
+    }
+
+
+    /* =================================
+       RESPONSIVO
+    ================================= */
+
+    @media (max-width: 450px) {
+
+      .container {
+
+        padding: 30px 22px 25px;
+      }
+
+
+      h2 {
+
+        font-size: 23px;
+      }
+
+
+      .icone {
+
+        width: 70px;
+
+        height: 70px;
+
+        font-size: 34px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+  <!-- ÍCONE -->
+
+  <div class="icone">
+
+    🏥
+
+  </div>
+
+
+  <!-- TÍTULO -->
+
+  <h2>
+    🎀 Atendimento
+  </h2>
+
+
+  <div class="subtitulo">
+
+    Hospital Hello Kitty
+    • Recepção
+
+  </div>
+
+
+  <!-- NOME -->
+
+  <div class="campo">
+
+    <label>
+      👤 Nome do paciente
+    </label>
+
+    <input
+      id="nome"
+      placeholder="Digite o nome completo"
+    >
+
+  </div>
+
+
+  <!-- CPF -->
+
+  <div class="campo">
+
+    <label>
+      🪪 CPF
+    </label>
+
+    <input
+      id="cpf"
+      placeholder="Digite o CPF"
+      maxlength="14"
+    >
+
+  </div>
+
+
+  <!-- TIPO -->
+
+  <div class="campo">
+
+    <label>
+      💗 Tipo de atendimento
+    </label>
+
+    <select id="tipo">
+
+      <option value="Convenio">
+        🩷 Convênio
+      </option>
+
+      <option value="Particular">
+        💕 Particular
+      </option>
+
+    </select>
+
+  </div>
+
+
+  <!-- FOTO -->
+
+  <div class="foto-box">
+
+    <div class="foto-titulo">
+
+      📷 Foto do paciente
+
+    </div>
+
+
+    <input
+      type="file"
+      id="foto"
+      accept="image/*"
+    >
+
+  </div>
+
+
+  <!-- BOTÃO -->
+
+  <button onclick="cadastrar()">
+
+    💗 Cadastrar Paciente
+
+  </button>
+
+
+  <!-- MENSAGEM -->
+
+  <div id="mensagem">
+
+    ✅ Paciente enviado para a triagem!
+
+  </div>
+
+
+  <!-- RODAPÉ -->
+
+  <div class="rodape">
+
+    Cuidando com carinho
+    <span class="coracao">♥</span>
+    Hospital Hello Kitty
+
+  </div>
+
+
+</div>
+
+
+<script>
+
+
+function cadastrar() {
+
+  const nome =
+    document.getElementById(
+      "nome"
+    ).value;
+
+  const cpf =
+    document.getElementById(
+      "cpf"
+    ).value;
+
+  const tipo =
+    document.getElementById(
+      "tipo"
+    ).value;
+
+
+  if (!nome.trim()) {
+
+    alert(
+      "🎀 Digite o nome do paciente."
+    );
+
+    return;
+  }
+
+
+  if (!cpf.trim()) {
+
+    alert(
+      "🪪 Digite o CPF do paciente."
+    );
+
+    return;
+  }
+
+
+  fetch(
+    "http://localhost:3000/atendimento",
+    {
+
+      method: "POST",
+
+      headers: {
+        "Content-Type":
+          "application/json"
+      },
+
+      body: JSON.stringify({
+
+        nome: nome,
+
+        cpf: cpf,
+
+        tipo: tipo
+
+      })
+
+    }
+  )
+
+
+  .then(r => {
+
+    if (!r.ok) {
+      throw new Error(
+        "Erro no cadastro"
+      );
+    }
+
+    return r.json();
+
+  })
+
+
+  .then(() => {
+
+    const mensagem =
+      document.getElementById(
+        "mensagem"
+      );
+
+
+    mensagem.style.display =
+      "block";
+
+
+    alert(
+      "💗 Paciente enviado para triagem!"
+    );
+
+
+    document.getElementById(
+      "nome"
+    ).value = "";
+
+
+    document.getElementById(
+      "cpf"
+    ).value = "";
+
+
+    document.getElementById(
+      "tipo"
+    ).value = "Convenio";
+
+
+    document.getElementById(
+      "foto"
+    ).value = "";
+
+  })
+
+
+  .catch(error => {
+
+    console.error(error);
+
+
+    alert(
+      "❌ Não foi possível cadastrar o paciente."
+    );
+
+  });
+
+}
+
+</script>
+
+
+</body>
+
+</html>
