@@ -272,7 +272,32 @@ app.get("/medicacoes", (req, res) => {
 
   res.json(db.consultas);
 });
+function internarPaciente(index) {
 
+  const t = triagensCarregadas[index];
+
+  if (!t) {
+    alert("❌ Paciente não encontrado.");
+    return;
+  }
+
+  const confirmar = confirm(
+    "🏥 Deseja internar o paciente " + t.nome + "?"
+  );
+
+  if (!confirmar) {
+    return;
+  }
+
+  localStorage.setItem(
+    "pacienteInternacao",
+    JSON.stringify(t)
+  );
+
+  alert(
+    "🏥 " + t.nome + " foi encaminhado para internação!"
+  );
+}
 // =========================
 // FRONTEND
 // =========================
